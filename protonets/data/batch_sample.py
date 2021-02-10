@@ -64,7 +64,7 @@ def load_kws(opt, splits):
     else:
         data_dir = KWS_DATA_DIR
         files=sorted(os.listdir(KWS_DATA_DIR))
-        val_class_names=['bja03', 'bja13','gmm03', 'gmm13', 'isp03', 'isp13', 'plt03', 'tst03']
+        val_class_names=['label01', 'label13','label03', 'label13', 'label03', 'label13', 'label03', 'label03']
         class_names=[]
         for file in files:
             class_name = file.split('_')[0]
