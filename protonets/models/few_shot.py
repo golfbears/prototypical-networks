@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
+#from torchsummary import summary
 from torch.autograd import Variable
 
 from protonets.models import register_model
@@ -81,4 +81,5 @@ def load_protonet_conv(**kwargs):
         Flatten()
     )
 
+    #summary(encoder, input_size=(x_dim[0], 160, 64))
     return Protonet(encoder)

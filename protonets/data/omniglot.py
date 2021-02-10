@@ -1,5 +1,4 @@
 import os
-import sys
 import glob
 
 from functools import partial
@@ -8,13 +7,12 @@ import numpy as np
 from PIL import Image
 
 import torch
-from torchvision.transforms import ToTensor
 
 from torchnet.dataset import ListDataset, TransformDataset
 from torchnet.transform import compose
 
-import protonets
-from protonets.data.base import convert_dict, CudaTransform, EpisodicBatchSampler, SequentialBatchSampler
+from protonets.data.base import convert_dict, CudaTransform, EpisodicBatchSampler, SequentialBatchSampler, \
+    extract_episode
 
 OMNIGLOT_DATA_DIR  = os.path.join(os.path.dirname(__file__), '../../data/omniglot')
 OMNIGLOT_CACHE = { }
@@ -59,25 +57,6 @@ def load_class_images(d):
 
     return { 'class': d['class'], 'data': OMNIGLOT_CACHE[d['class']] }
 
-def extract_episode(n_support, n_query, d):
-    # data: N x C x H x W
-    n_examples = d['data'].size(0)
-
-    if n_query == -1:
-        n_query = n_examples - n_support
-
-    example_inds = torch.randperm(n_examples)[:(n_support+n_query)]
-    support_inds = example_inds[:n_support]
-    query_inds = example_inds[n_support:]
-
-    xs = d['data'][support_inds]
-    xq = d['data'][query_inds]
-
-    return {
-        'class': d['class'],
-        'xs': xs,
-        'xq': xq
-    }
 
 def load(opt, splits):
     split_dir = os.path.join(OMNIGLOT_DATA_DIR, 'splits', opt['data.split'])

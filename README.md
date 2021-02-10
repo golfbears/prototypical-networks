@@ -26,12 +26,15 @@ If you use this code, please cite our paper:
 
 * Run `sh download_omniglot.sh`.
 
-### Train the model
+### Train the model for images
 
 * Run `python scripts/train/few_shot/run_train.py`. This will run training and place the results into `results`.
   * You can specify a different output directory by passing in the option `--log.exp_dir EXP_DIR`, where `EXP_DIR` is your desired output directory.
   * If you are running on a GPU you can pass in the option `--data.cuda`.
 * Re-run in trainval mode `python scripts/train/few_shot/run_trainval.py`. This will save your model into `results/trainval` by default.
+
+## Train the model  for asr
+* Run `python scripts/train/few_shot/run_asr_train.py`. This will run training and place the results into `results`.
 
 ### Evaluate
 
